@@ -1,0 +1,20 @@
+{
+  "name": "graphql-goodreads",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Matus-Stastny/graphql-goodreads.git",
+  "author": "Matúš Šťastný <matus.stastny@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node start.js"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "express-graphql": "^0.6.11",
+    "graphql": "^0.11.7",
+    "node-fetch": "^1.7.3",
+    "util": "^0.10.3",
+    "xml2js": "^0.4.19"
+  }
+}
