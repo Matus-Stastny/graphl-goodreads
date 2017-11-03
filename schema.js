@@ -5,10 +5,27 @@ const {
     GraphQLSchema,
     GraphQLObjectType,
     GraphQLInt,
-    GraphQLString
+    GraphQLString,
+    GraphQLList
 } = require('graphql');
 
 const API_KEY = process.env.API_KEY;
+
+const BookType = new GraphQLObjectType({
+    name: 'Book',
+    descritpion: 'This is cool book description',
+
+    fields: () => ({
+        title: {
+            type: GraphQLString,
+            resolve: (xml) => xml.title[0],
+        },
+        isbn: {
+            type: GraphQLString,
+            resolve: (xml) => xml.isbn[0],
+        }
+    })
+});
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
@@ -19,8 +36,14 @@ const AuthorType = new GraphQLObjectType({
             type: GraphQLString,
             resolve: (xml) => xml.GoodreadsResponse.author[0].name[0],
         },
+        books: {
+            type: new GraphQLList(BookType),
+            resolve: (xml) => xml.GoodreadsResponse.author[0].books[0].book,
+        }
     })
 });
+
+
 
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
