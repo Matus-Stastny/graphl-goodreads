@@ -13,7 +13,7 @@ const API_KEY = process.env.API_KEY;
 
 const BookType = new GraphQLObjectType({
     name: 'Book',
-    descritpion: 'This is cool book description',
+    description: 'This is cool book description',
 
     fields: () => ({
         title: {
@@ -23,18 +23,34 @@ const BookType = new GraphQLObjectType({
         isbn: {
             type: GraphQLString,
             resolve: (xml) => xml.isbn[0],
+        },
+        averateRating: {
+            type: GraphQLString,
+            resolve: (xml) => xml.average_rating[0],
+        },
+        link: {
+            type: GraphQLString,
+            resolve: (xml) => xml.link[0],
+        },
+        description: {
+            type: GraphQLString,
+            resolve: (xml) => xml.description[0],
         }
     })
 });
 
 const AuthorType = new GraphQLObjectType({
     name: 'Author',
-    descritpion: 'This is author',
+    description: 'This is author',
 
     fields: () => ({
         name: {
             type: GraphQLString,
             resolve: (xml) => xml.GoodreadsResponse.author[0].name[0],
+        },
+        gender: {
+            type: GraphQLString,
+            resolve: (xml) => xml.GoodreadsResponse.author[0].gender[0],
         },
         books: {
             type: new GraphQLList(BookType),
@@ -48,7 +64,7 @@ const AuthorType = new GraphQLObjectType({
 module.exports = new GraphQLSchema({
     query: new GraphQLObjectType({
         name: 'Query',
-        descritpion: 'This is cool description',
+        description: 'This is cool description',
 
         fields: () => ({
             author: {
@@ -63,3 +79,4 @@ module.exports = new GraphQLSchema({
         })
     })
 });
+
